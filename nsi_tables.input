@@ -1,0 +1,53 @@
+-- Auto converted from XSI-SI-UNIT::make-nsi-table
+--
+
+Q ==> Fraction(Integer)
+
+nsi  : Table(Symbol,PQTY(SI)) := empty();
+snsi : Table(Symbol,PQTY(SI)) := empty();
+
+
+
+nsi.min:=pqty(60::Q,0,%s(1));
+nsi.h:=pqty(3600::Q,0,%s(1));
+nsi.d:=pqty(86400::Q,0,%s(1));
+nsi.ha:=pqty(10000::Q,0,%m(2));
+nsi.l:=pqty(0.001::Q,0,%m(3));
+nsi.t:=pqty(1000::Q,0,%kg(1));
+nsi.doa:=pqty(0.0174532925199433::Q,0,%one()$SI);
+nsi.moa:=pqty(0.000290888208665722::Q,0,%one()$SI);
+nsi.soa:=pqty(4.84813681109536e-006::Q,0,%one()$SI);
+nsi.eV:=pqty(1.60217653e-019::Q,0,%m(2)*%kg(1)*%s(-2));
+nsi.u:=pqty(1.66053886e-027::Q,0,%kg(1));
+nsi.AU:=pqty(149597870691.0::Q,0,%m(1));
+nsi.A:=pqty(1.0e-010::Q,0,%m(1));
+nsi.nmi:=pqty(1852::Q,0,%m(1));
+nsi.kn:=pqty(0.514444444444444::Q,0,%m(1)*%s(-1));
+nsi.a:=pqty(100::Q,0,%m(2));
+nsi.b:=pqty(1.0e-028::Q,0,%m(2));
+nsi.bar:=pqty(100000::Q,0,%m(-1)*%kg(1)*%s(-2));
+nsi.mbar:=pqty(100::Q,0,%m(-1)*%kg(1)*%s(-2));
+nsi.atm:=pqty(101325.0::Q,0,%m(-1)*%kg(1)*%s(-2));
+
+
+
+snsi.minute:=pqty(60::Q,0,%s(1));
+snsi.hour:=pqty(3600::Q,0,%s(1));
+snsi.day:=pqty(86400::Q,0,%s(1));
+snsi.hectare:=pqty(10000::Q,0,%m(2));
+snsi.litre:=pqty(0.001::Q,0,%m(3));
+snsi.tonne:=pqty(1000::Q,0,%kg(1));
+snsi.arcd:=pqty(0.0174532925199433::Q,0,%one()$SI);
+snsi.arcm:=pqty(0.000290888208665722::Q,0,%one()$SI);
+snsi.arcs:=pqty(4.84813681109536e-006::Q,0,%one()$SI);
+snsi.electronvolt:=pqty(1.60217653e-019::Q,0,%m(2)*%kg(1)*%s(-2));
+snsi.atomic_mass_unit:=pqty(1.66053886e-027::Q,0,%kg(1));
+snsi.astronomical_unit:=pqty(149597870691.0::Q,0,%m(1));
+snsi.Angstrom:=pqty(1.0e-010::Q,0,%m(1));
+snsi.nautical_mile:=pqty(1852::Q,0,%m(1));
+snsi.knot:=pqty(0.514444444444444::Q,0,%m(1)*%s(-1));
+snsi.are:=pqty(100::Q,0,%m(2));
+snsi.barn:=pqty(1.0e-028::Q,0,%m(2));
+snsi.bar:=pqty(100000::Q,0,%m(-1)*%kg(1)*%s(-2));
+snsi.mbar:=pqty(100::Q,0,%m(-1)*%kg(1)*%s(-2));
+snsi.atmosphere:=pqty(101325.0::Q,0,%m(-1)*%kg(1)*%s(-2));

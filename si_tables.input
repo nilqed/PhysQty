@@ -1,0 +1,76 @@
+-------------------------------------------------
+-- Auto converted from XSI-SI-UNIT::make-si-table
+-------------------------------------------------
+
+
+-- Tables
+-- si:  unit symbol -> SI_UNIT
+-- ssi: unit name   -> SI_UNIT  (secure si = ssi)
+
+si  : Table(Symbol,SI_UNIT) := empty();
+ssi : Table(Symbol,SI_UNIT) := empty();
+
+
+-- Table: si
+
+si.m:=%m(1);
+si.kg:=%kg(1);
+si.s:=%s(1);
+si.A:=%A(1);
+si.K:=%K(1);
+si.mol:=%mol(1);
+si.cd:=%cd(1);
+si.Hz:=%s(-1);
+si.rad:=%one()$SI;
+si.sr:=%one()$SI;
+si.N:=%m(1)*%kg(1)*%s(-2);
+si.Pa:=%m(-1)*%kg(1)*%s(-2);
+si.J:=%m(2)*%kg(1)*%s(-2);
+si.W:=%m(2)*%kg(1)*%s(-3);
+si.C:=%s(1)*%A(1);
+si.V:=%m(2)*%kg(1)*%s(-3)*%A(-1);
+si.F:=%m(-2)*%kg(-1)*%s(4)*%A(2);
+si.O:=%m(2)*%kg(1)*%s(-3)*%A(-2);
+si.S:=%m(-2)*%kg(-1)*%s(3)*%A(2);
+si.Wb:=%m(2)*%kg(1)*%s(-2)*%A(-1);
+si.T:=%kg(1)*%s(-2)*%A(-2);
+si.H:=%m(2)*%kg(1)*%s(-2)*%A(-2);
+si.lm:=%cd(1);
+si.lx:=%m(-2)*%cd(1);
+si.Bq:=%s(-1);
+si.Gy:=%m(2)*%s(-2);
+si.Sv:=%m(2)*%s(-2);
+si.kat:=%s(-1)*%mol(1);
+
+
+
+-- Table: ssi
+
+ssi.meter:=%m(1);
+ssi.kilogram:=%kg(1);
+ssi.second:=%s(1);
+ssi.ampere:=%A(1);
+ssi.kelvin:=%K(1);
+ssi.mole:=%mol(1);
+ssi.candela:=%cd(1);
+ssi.hertz:=%s(-1);
+ssi.radian:=%one()$SI;
+ssi.steradian:=%one()$SI;
+ssi.newton:=%m(1)*%kg(1)*%s(-2);
+ssi.pascal:=%m(-1)*%kg(1)*%s(-2);
+ssi.joule:=%m(2)*%kg(1)*%s(-2);
+ssi.watt:=%m(2)*%kg(1)*%s(-3);
+ssi.coulomb:=%s(1)*%A(1);
+ssi.volt:=%m(2)*%kg(1)*%s(-3)*%A(-1);
+ssi.farad:=%m(-2)*%kg(-1)*%s(4)*%A(2);
+ssi.ohm:=%m(2)*%kg(1)*%s(-3)*%A(-2);
+ssi.siemens:=%m(-2)*%kg(-1)*%s(3)*%A(2);
+ssi.weber:=%m(2)*%kg(1)*%s(-2)*%A(-1);
+ssi.tesla:=%kg(1)*%s(-2)*%A(-2);
+ssi.henry:=%m(2)*%kg(1)*%s(-2)*%A(-2);
+ssi.lumen:=%cd(1);
+ssi.lux:=%m(-2)*%cd(1);
+ssi.becquerel:=%s(-1);
+ssi.gray:=%m(2)*%s(-2);
+ssi.sievert:=%m(2)*%s(-2);
+ssi.katal:=%s(-1)*%mol(1);

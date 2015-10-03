@@ -1,0 +1,462 @@
+++++++++++++++++++++++++
+++ $Id: 06-SEP-2015$ +++
+++++++++++++++++++++++++
+)abbrev domain RIA Q_INTERVAL
+++ Author: Kurt Pagani
+++ Date Created: 2012
+++ License: BSD (same as Axiom)
+++ ===================================
+++ Rational Interval Arithmetics (RIA)
+++ ===================================
+++ This is an implementation of RIA as a FriCAS domain.
+++ Ref. "Guaranteed Proofs Using Interval Arithmetic"
+++ by Marc Daumas, Guillaume Melquiond, and Cesar Munoz
+++ See docs for more information.
+++
+++ 
+++
+Q_INTERVAL : Exports == Implementation where
+
+    Q ==> Fraction(Integer)
+    R ==> DoubleFloat
+    I ==> Integer
+    
+    OF ==> OutputForm
+    DF ==> DoubleFloat
+
+    Exports == Join(CoercibleTo OutputForm, ConvertibleTo String) with
+    
+        ----------------------------
+        -- Basic interval operations
+        ----------------------------
+        
+        "+" : (%,%) -> %
+        "-" : (%,%) -> %
+        "*" : (%,%) -> %
+        "/" : (%,%) -> %
+        "^" : (%,I) -> %
+        "-" :  % -> %
+        abs :  % -> %
+        elt : (Q, %) -> %
+        coerce: % -> OutputForm
+        coerce: List Q -> %
+        coerce: Float -> %
+        coerce: DF -> %
+        
+        concise : % -> OutputForm
+        
+        ----------------------------------
+        -- Constructors and query functions
+        -----------------------------------
+        
+        mki : (Q,Q) -> %
+        lb  :  % -> Q
+        ub  :  % -> Q
+        
+        mid :  % -> Q
+        len :  % -> Q
+        
+        frep    : % -> OF
+        tm_frep : % -> OF
+        
+    Implementation == add 
+    
+        --------------------
+        -- Represent as Rec
+        --------------------     
+        Rep := Record(lb:Q, ub:Q)
+        
+        -----------------------
+        -- Implement functions
+        -----------------------
+        mki(a,b) == b>=a => [a,b]$Rep
+            
+        lb(r:%) == r.lb
+        ub(r:%) == r.ub
+        
+        x+y == mki(x.lb + y.lb, x.ub + y.ub)
+        x-y == mki(x.lb - y.ub, x.ub - y.lb)
+        
+        x*y == 
+          a:Q:=min(min(x.lb*y.lb,x.lb*y.ub),min(x.ub*y.lb,x.ub*y.ub))
+          b:Q:=max(max(x.lb*y.lb,x.lb*y.ub),max(x.ub*y.lb,x.ub*y.ub))
+          mki(a,b)
+          
+        x/y == if y.lb*y.ub > 0 then x*mki(1/y.ub,1/y.lb)
+        
+        -x == mki(-x.ub,-x.lb)
+        
+        abs(x) ==
+          if x.lb*x.ub >= 0 then 
+            mki(min(abs(x.lb), abs(x.ub)), max(abs(x.lb), abs(x.ub)))
+          else
+            mki(0::Q, max(abs(x.lb), abs(x.ub)))
+            
+        x^n ==
+          zero? n   => mki(1,1)
+          one?  n   => x
+          x.lb>=0 or odd?  n => mki(x.lb^n,x.ub^n) 
+          x.ub<=0 or even? n => mki(x.ub^n,x.lb^n)
+          mki(0,max(x.lb^n,x.ub^n))
+        
+        coerce(r : %) : OutputForm ==
+          hconcat ["[",r.lb::OF,",",r.ub::OF,"]"]
+        
+        
+        coerce(l : List Q) : % ==
+          #l ~= 2 => error "Format: [lb,ub]"
+          l.1 > l.2 => error "Must have lb <= ub"
+          mki(l.1,l.2)
+          
+        coerce(r:DF):% ==
+          rc:Q:=retract r
+          mki(rc,rc)
+          
+        coerce(r:Float):% ==
+          rc:Q:=retract r
+          mki(rc,rc)    
+        
+        coerceSTR(s:String):% ==
+          s1 := split(s,char ".")
+          s2 := split(s1.2, char "(")
+          vs := concat [s1.1,".",s2.1]
+          v:=float(convert vs)
+          v::Rep
+        
+        
+        elt(q:Q,x:%):% == mki(q*x.lb, q*x.ub)
+
+        mid(x:%):Q == (x.lb + x.ub)/2::Q
+        len(x:%):Q == (x.ub - x.lb)
+        
+        frep(x:%):OF ==
+          pm:Character:=char(177)
+          sep:=concat [" ",pm::String," "]::Symbol
+          hconcat [mid(x)::DF::OF, sep::OF, (len(x)/2::Q)::DF::OF]
+          
+        tm_frep(x:%):OF ==
+          sep:=" <pm> "::Symbol
+          hconcat [mid(x)::DF::OF, sep::OF, (len(x)/2::Q)::DF::OF]       
+          
+        concise(x:%):OF == frep(x)  -- to do
+          
+
+)abbrev category PUNIT PhysicalUnit
+++
+PhysicalUnit() : Category == with
+        "*"  : (%,%) -> %
+        "/"  : (%,%) -> %
+        "^"  : (%,Integer) -> %
+        "="  : (%,%) -> Boolean
+        %one : -> %
+        coerce : % -> OutputForm
+
+
+)abbrev domain SI SI_UNIT 
+++ Author: Kurt Pagani
+++ Date Created: 2012
+++ License: BSD (same as Axiom)
+++ ================================
+++ Physical Quantities and SI Units
+++ ================================
+++ This is an implementation of physical quantities and SI units as FriCAS 
+++ domains.
+++
+++ See docs for more information.
+++
+++ Revision:
+++ - removing outputForm, Ring
+++ - added negation, elt
+++
+++
+SI_UNIT : Exports == Implementation where
+
+    EI  ==> Expression Integer
+    VI  ==> Vector Integer
+    LS  ==> List Symbol
+    LEI ==> List EI
+    LVI ==> List VI
+
+    
+    Exports == Join(PhysicalUnit,CoercibleTo OutputForm) with
+      
+        ----------------------------
+        -- (de)-construct an SI unit  
+        ----------------------------
+        mksi: List(Integer) -> %
+        si2l: % -> List(Integer)
+        
+        --------------------------------
+        -- basic operation with SI units
+        --------------------------------
+        --"*"  : (%,%) -> %
+        --"/"  : (%,%) -> %
+        --"^"  : (%,Integer) -> %
+        --"="  : (%,%) -> Boolean
+        
+        -----------------------------------------------------------------
+        -- constructor for each base unit: e.g. %m(2)=m^2 -> square meter
+        -----------------------------------------------------------------
+        %m   :  Integer -> %
+        %kg  :  Integer -> %  
+        %s   :  Integer -> %
+        %A   :  Integer -> %
+        %K   :  Integer -> %  
+        %mol :  Integer -> % 
+        %cd  :  Integer -> %
+        --%one :          -> %        
+        
+        -------------------
+        -- SI derived units
+        -------------------
+        SI_derived : String -> %
+        
+        
+        ----------------
+        -- Buckingham Pi 
+        ----------------
+        buck : Table(Symbol,%) -> List(Expression(Integer))
+           
+
+
+    Implementation == add
+        
+        ---------------------------------------      
+        -- Represent as 1-Array [0,0,0,0,0,0,0]
+        ---------------------------------------    
+        Rep := OneDimensionalArray(Integer)
+        
+        ---------------------------------
+        -- Implementation of constructors
+        ---------------------------------
+        
+        mksi(l) == 
+          r:Rep:=new(7,0$Integer)$Rep       
+          for i in 1..7 repeat r.i := l(i)
+          r
+          
+        si2l(r) ==
+          l:List(Integer):=[0,0,0,0,0,0,0]
+          for i in 1..7 repeat l(i) := r.i
+          l
+
+        x * y ==
+          z:Rep:=new(7,0$Integer)$Rep
+          for i in 1..7 repeat z.i := x.i + y.i
+          z
+          
+        x / y ==
+          z:Rep:=new(7,0$Integer)$Rep
+          for i in 1..7 repeat z.i := x.i - y.i
+          z
+                    
+        x ^ n ==
+          z:Rep:=new(7,0$Integer)$Rep
+          for i in 1..7 repeat z.i := x.i * n
+          z
+         
+        x = y ==
+          res:Boolean:=true 
+          for i in 1..7 repeat res:=(res and test(x.i=y.i)$Boolean) 
+          res
+       
+        ------------------------ 
+        -- Coerce to output form
+        ------------------------  
+        coerce(r : %) : OutputForm ==
+          SYM ==> Symbol
+          OF  ==> OutputForm
+          sym:List(String):=["m","kg","s","A","K","mol","cd"]
+          f:OutputForm:=empty()     
+          for i in 1..7 repeat 
+            if not zero? r.i then 
+              f:=hconcat(f,super(sym(i)::SYM::OF, r.i::OF))
+          f
+        
+        
+        ------------------------------------------
+        -- Base unit constructors (implementation)
+        ------------------------------------------ 
+                    
+        %m(n:Integer) ==
+          mksi([n,0,0,0,0,0,0]) 
+
+        %kg(n:Integer) ==
+          mksi([0,n,0,0,0,0,0]) 
+          
+        %s(n:Integer) ==
+          mksi([0,0,n,0,0,0,0])          
+
+        %A(n:Integer) ==
+          mksi([0,0,0,n,0,0,0]) 
+
+        %K(n:Integer) ==
+          mksi([0,0,0,0,n,0,0]) 
+          
+        %mol(n:Integer) ==
+          mksi([0,0,0,0,0,n,0])
+          
+        %cd(n:Integer) ==
+          mksi([0,0,0,0,0,0,n])                   
+       
+        %one() ==
+          mksi([0,0,0,0,0,0,0])  
+          
+          
+        SI_derived(s:String):% ==
+          s = "hertz"     => %s(-1)
+          s = "newton"    => %kg(1)*%m(1)*%s(-2)
+          s = "pascal"    => %kg(1)*%m(-1)*%s(-2)
+          s = "joule"     => %kg(1)*%m(2)*%s(-2)
+          s = "watt"      => %kg(1)*%m(2)*%s(-3)
+          s = "coulomb"   => %s(1)*%A(1)
+          s = "volt"      => %kg(1)*%m(2)*%s(-3)*%A(-1)
+          s = "farad"     => %kg(-1)*%m(-2)*%s(4)*%A(2)
+          s = "ohm"       => %kg(1)*%m(2)*%s(-3)*%A(2)
+          s = "siemens"   => %kg(-1)*%m(-2)*%s(3)*%A(2)
+          s = "weber"     => %kg(1)*%m(2)*%s(-2)*%A(-1)
+          s = "tesla"     => %kg(1)*%s(-2)*%A(-1)
+          s = "henry"     => %kg(1)*%m(2)*%s(-2)*%A(-2)
+          s = "lumen"     => %cd(1)
+          s = "lux"       => %m(-2)*%cd(1)
+          s = "becquerel" => %s(-1)
+          s = "gray"      => %m(2)*%s(-2)
+          s = "sievert"   => %m(2)*%s(-2)
+          s = "katal"     => %s(-1)*%mol(1)
+          error "Expected string name of a derived SI unit."
+
+        
+        -- Helper function
+        mkxpr(s:LS,v:VI):EI == 
+          r:EI:=1
+          for j in 1..#s repeat r:=r*(s.j)::EI^(v.j)
+          r
+          
+
+        -- Buckingham Pi
+        buck(t:Table(Symbol,%)):LEI ==
+          M:Matrix(Integer):=matrix [si2l(t.x) for x in keys(t)]
+          ns:LVI:=nullSpace transpose(M)
+          r:LEI:=[]
+          for j in 1..#ns repeat r:=append(r,[mkxpr(keys(t),ns.j)])
+          r
+
+
+
+-- End of SI_UNIT --        
+       
+       
+-------------------------------------------------------------------------------
+)abbrev domain PQTY PhysQty
+++ Author: Kurt Pagani
+++ Date Created: 2012
+++ License: BSD (same as Axiom)
+++
+PhysQty(U): Exports == Implementation where
+    
+    Q   ==> Fraction(Integer)
+    F   ==> Float
+    R   ==> DoubleFloat
+    I   ==> Integer
+    QI  ==> Q_INTERVAL
+    U:PhysicalUnit
+       
+    
+    Exports == Join(CoercibleTo OutputForm) with
+        
+        --------------------------------------
+        -- Physical quantities base operations
+        --------------------------------------
+        
+        "*": (%,%) -> %
+        "/": (%,%) -> %
+        "+": (%,%) -> %
+        "-": (%,%) -> %
+        "^": (%,Integer) -> %
+        "-":  % -> %
+        elt: (Q, %) -> %
+        elt: (QI,U) -> %
+        elt: (Union(Q,F,R,I),U) -> %
+        coerce : % -> OutputForm
+        
+        
+        ---------------------------------------------------
+        -- Main constructor: pqty(value, uncertainty, unit)
+        ---------------------------------------------------
+        pqty: (Q, Q, U) -> %    
+        
+        pqty_value: % -> Q  -- get the value
+        pqty_error: % -> Q  -- get the uncertainty
+        pqty_unit:  % -> U  -- get the unit
+        
+        pqty_interval: % -> QI  -- get the interval [v-delta,v+delta]
+        pqty_scale: (%,Q) -> %       -- scale by rational number
+
+
+        pqty_tm_toggle: U -> Boolean        
+           
+    Implementation ==  add 
+    
+        ----------------------
+        -- Represent as Record
+        ----------------------     
+        Rep := Record(ival:QI, unit:U)
+        
+        ----------------------
+        -- Implement functions
+        ----------------------
+        pqty(v,e,u) == [[v-e,v+e]::List(Q)::QI,u::U]$Rep
+            
+        pqty_value(r) == mid(r.ival)
+          
+        pqty_error(r) == len(r.ival)/2::Q
+
+        pqty_unit(r) == r.unit
+
+        pqty_interval(r) == r.ival
+
+        ----------------------------------------------------
+        -- Implement basic operations (interval arithmetic))
+        ----------------------------------------------------
+        
+        x*y == [x.ival*y.ival, x.unit*y.unit]$Rep
+         
+       
+        x/y == [x.ival/y.ival, x.unit/y.unit]$Rep
+                 
+       
+        x+y == x.unit=y.unit => [x.ival+y.ival, x.unit]$Rep
+            
+            
+        x-y == x.unit=y.unit => [x.ival-y.ival, x.unit]$Rep
+          
+        x^n == [x.ival^n, x.unit^n]$Rep
+
+        - x == [-x.ival, x.unit]$Rep 
+
+        -----------------------------------------------------------
+        -- scale
+        -----------------------------------------------------------
+        pqty_scale(x,s) == [s x.ival,x.unit]$Rep
+
+        --elts
+        elt(q:Q,x:%):% == pqty_scale(x,q)
+        elt(qi:QI,u:U):% == [qi,u]$Rep
+        elt(s:Union(Q,F,R,I),u:U):% == [[s::Q,s::Q]::List(Q)::QI,u]$Rep
+        
+
+        pqty_tm := false
+
+        pqty_tm_toggle(u:U) : Boolean ==  -- bad hack
+          pqty_tm := not pqty_tm
+          pqty_tm
+     
+        coerce(r : %) : OutputForm ==
+          OF ==> OutputForm
+          -- pqty_tm = true => 
+          -- hconcat [tm_frep r.ival, " "::OF, r.unit::OF ]
+          hconcat [frep r.ival, " "::OF, r.unit::OF ]
+          
+          
+          
+-- End of PhysQty
