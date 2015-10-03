@@ -46,9 +46,8 @@ If the installation was successful try the following commands which are looking 
 
 
 
-```SPAD
-)lib RIA SI PUNIT PQTY
-```
+
+`-> )lib RIA SI PUNIT PQTY`
 
        Q_INTERVAL is already explicitly exposed in frame initial 
        Q_INTERVAL will be automatically loaded when needed from 
@@ -73,9 +72,8 @@ If the installation was successful try the following commands which are looking 
 
 
 
-```SPAD
-t:Table(Symbol,SI_UNIT):=table()
-```
+
+`-> t:Table(Symbol,SI_UNIT):=table()`
 
 
 
@@ -87,13 +85,12 @@ t:Table(Symbol,SI_UNIT):=table()
 
 
 
-```SPAD
-t.L := %m(1)
-t.T := %s(1)
-t.M := %kg(1)
-t.g := t.L / (t.T)^2
+```SPAd
+-> t.L := %m(1)
+   t.T := %s(1)
+   t.M := %kg(1)
+   t.g := t.L / (t.T)^2
 ```
-
 
 
 
@@ -118,9 +115,8 @@ t.g := t.L / (t.T)^2
 
 
 
-```SPAD
-t
-```
+
+`-> t`
 
 
 
@@ -134,9 +130,9 @@ t
 
 
 
-```SPAD
-r:=buck(t) 
-```
+
+`-> r:=buck(t)` 
+
 
 
 
@@ -151,9 +147,7 @@ r:=buck(t)
 
 
 
-```SPAD
-solve(r.1=1,T)
-```
+`-> solve(r.1=1,T)`
 
 
 
@@ -170,7 +164,3 @@ solve(r.1=1,T)
 #### User Manual
 coming soon ...
 
-
-```SPAD
-
-```
