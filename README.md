@@ -161,6 +161,8 @@ If the installation was successful try the following commands which are looking 
 
 
 
-#### User Manual
-coming soon ...
+#### User/Reference Manual
+
+A preliminary version is [here](http://kfp.bitbucket.org/pqty/PQTY.html).
+
 
