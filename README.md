@@ -12,9 +12,9 @@ Source: [International vocabulary of metrology](http://www.bipm.org/utils/common
 
 
 ##### About this Implementation
-`PhysQty` provides units and physical quantities for the [Fricas](http://fricas.sourceforge.net/) computer algebra system (a fork of Axiom). There is one new category `PhysicalUnit` (abbrev. `PUNIT`) and there are two new domains `SI_UNIT` and `PhysQty` (abbrev. `SI` and `PQTY` respectively) which allow safe operations.
+`PhysQty` provides units and physical quantities for the [Fricas](http://fricas.sourceforge.net/) computer algebra system (a fork of Axiom). There is one new category `PhysicalUnit` (abbrev. `PUNIT`) and there are two new domains `SIunit` and `PhysQty` (abbrev. `SI` and `PQTY` respectively) which allow safe operations.
 
-Another domain called `Q_INTERVAL` (abbrev. `RIA`) cares for exact calculations by using *rational interval arithmetics*. 
+Another domain called `RationalInterval` (abbrev. `RIA`) cares for exact calculations by using *rational interval arithmetics*. 
 
 ## Installation
 
@@ -24,7 +24,7 @@ Get this repository:
     
 Then change to the `physqty` folder and start `FriCAS`:
 
-    fricas -nox
+    fricas [options]
     ...
     
     (1) -> )compile pqty.spad
@@ -49,11 +49,11 @@ If the installation was successful try the following commands which are looking 
 
 `-> )lib RIA SI PUNIT PQTY`
 
-       Q_INTERVAL is already explicitly exposed in frame initial 
-       Q_INTERVAL will be automatically loaded when needed from 
+       RationalInterval is already explicitly exposed in frame initial 
+       RationalInterval will be automatically loaded when needed from 
           /home/kfp/PhysQty/RIA.NRLIB/RIA
-       SI_UNIT is already explicitly exposed in frame initial 
-       SI_UNIT will be automatically loaded when needed from 
+       SIunit is already explicitly exposed in frame initial 
+       SIunit will be automatically loaded when needed from 
           /home/kfp/PhysQty/SI.NRLIB/SI
        PhysicalUnit is already explicitly exposed in frame initial 
        PhysicalUnit will be automatically loaded when needed from 
@@ -65,21 +65,13 @@ If the installation was successful try the following commands which are looking 
 
 
 
-
-
-    
-
-
-
-
-
-`-> t:Table(Symbol,SI_UNIT):=table()`
+`-> t:Table(Symbol,SIunit):=table()`
 
 
 
 
        table()
-                                                      Type: Table(Symbol,SI_UNIT)
+                                                      Type: Table(Symbol,SIunit)
 
 
 
@@ -97,19 +89,19 @@ If the installation was successful try the following commands which are looking 
         1
        m
     
-                                                                    Type: SI_UNIT
+                                                                    Type: SIunit
         1
        s
     
-                                                                    Type: SI_UNIT
+                                                                    Type: SIunit
          1
        kg
     
-                                                                    Type: SI_UNIT
+                                                                    Type: SIunit
         1 - 2
        m s
     
-                                                                    Type: SI_UNIT
+                                                                    Type: SIunit
 
 
 
@@ -124,7 +116,7 @@ If the installation was successful try the following commands which are looking 
                  1 - 2      1     1     1
        table(g= m s   ,M= kg ,T= s ,L= m )
     
-                                                      Type: Table(Symbol,SI_UNIT)
+                                                      Type: Table(Symbol,SIunit)
 
 
 
@@ -164,5 +156,8 @@ If the installation was successful try the following commands which are looking 
 #### User/Reference Manual
 
 A preliminary version is [here](http://kfp.bitbucket.org/pqty/PQTY.html).
+
+In the subfolder `doc` you will find the notebooks (`.ipynb`)
+
 
 

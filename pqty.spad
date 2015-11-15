@@ -1,10 +1,7 @@
-++++++++++++++++++++++++
-++ $Id: 06-SEP-2015$ +++
-++++++++++++++++++++++++
-)abbrev domain RIA Q_INTERVAL
+)abbrev domain RIA RationalInterval
 ++ Author: Kurt Pagani
 ++ Date Created: 2012
-++ License: BSD (same as Axiom)
+++ License: BSD2
 ++ ===================================
 ++ Rational Interval Arithmetics (RIA)
 ++ ===================================
@@ -13,16 +10,18 @@
 ++ by Marc Daumas, Guillaume Melquiond, and Cesar Munoz
 ++ See docs for more information.
 ++
+++ Version: 15-NOV-2015
 ++ 
 ++
-Q_INTERVAL : Exports == Implementation where
+RationalInterval : Exports == Implementation where
 
     Q ==> Fraction(Integer)
-    R ==> DoubleFloat
+    R ==> Float
     I ==> Integer
     
     OF ==> OutputForm
     DF ==> DoubleFloat
+    DE ==> DecimalExpansion
 
     Exports == Join(CoercibleTo OutputForm, ConvertibleTo String) with
     
@@ -42,6 +41,7 @@ Q_INTERVAL : Exports == Implementation where
         coerce: List Q -> %
         coerce: Float -> %
         coerce: DF -> %
+        coerce: DE -> %
         
         concise : % -> OutputForm
         
@@ -56,8 +56,10 @@ Q_INTERVAL : Exports == Implementation where
         mid :  % -> Q
         len :  % -> Q
         
-        frep    : % -> OF
-        tm_frep : % -> OF
+        frep     : % -> OF
+        tm_frep  : % -> OF
+
+
         
     Implementation == add 
     
@@ -100,7 +102,8 @@ Q_INTERVAL : Exports == Implementation where
           mki(0,max(x.lb^n,x.ub^n))
         
         coerce(r : %) : OutputForm ==
-          hconcat ["[",r.lb::OF,",",r.ub::OF,"]"]
+          bracket([r.lb::OF,r.ub::OF])
+          --hconcat ["[",r.lb::OF,",",r.ub::OF,"]"]
         
         
         coerce(l : List Q) : % ==
@@ -114,7 +117,11 @@ Q_INTERVAL : Exports == Implementation where
           
         coerce(r:Float):% ==
           rc:Q:=retract r
-          mki(rc,rc)    
+          mki(rc,rc)
+          
+        coerce(r:DE):% ==
+          rc:Q:=retract r
+          mki(rc,rc)
         
         coerceSTR(s:String):% ==
           s1 := split(s,char ".")
@@ -129,15 +136,21 @@ Q_INTERVAL : Exports == Implementation where
         mid(x:%):Q == (x.lb + x.ub)/2::Q
         len(x:%):Q == (x.ub - x.lb)
         
+        
         frep(x:%):OF ==
           pm:Character:=char(177)
-          sep:=concat [" ",pm::String," "]::Symbol
-          hconcat [mid(x)::DF::OF, sep::OF, (len(x)/2::Q)::DF::OF]
+          sp:Character:=char(32)
+          blk:=sp::String::Symbol
+          sep:=pm::String::Symbol
+          -- now Float output (can use precision?)
+          hconcat [mid(x)::R::OF,blk::OF,sep::OF,blk::OF,(len(x)/2::Q)::R::OF]
           
+        
         tm_frep(x:%):OF ==
           sep:=" <pm> "::Symbol
           hconcat [mid(x)::DF::OF, sep::OF, (len(x)/2::Q)::DF::OF]       
           
+
         concise(x:%):OF == frep(x)  -- to do
           
 
@@ -152,10 +165,10 @@ PhysicalUnit() : Category == with
         coerce : % -> OutputForm
 
 
-)abbrev domain SI SI_UNIT 
+)abbrev domain SI SIunit 
 ++ Author: Kurt Pagani
 ++ Date Created: 2012
-++ License: BSD (same as Axiom)
+++ License: BSD2
 ++ ================================
 ++ Physical Quantities and SI Units
 ++ ================================
@@ -167,9 +180,11 @@ PhysicalUnit() : Category == with
 ++ Revision:
 ++ - removing outputForm, Ring
 ++ - added negation, elt
+++ - Renamed SI_UNIT to SIunit
 ++
+++ Version: 15-NOV-2015
 ++
-SI_UNIT : Exports == Implementation where
+SIunit : Exports == Implementation where
 
     EI  ==> Expression Integer
     VI  ==> Vector Integer
@@ -209,7 +224,7 @@ SI_UNIT : Exports == Implementation where
         -------------------
         -- SI derived units
         -------------------
-        SI_derived : String -> %
+        SIderived : String -> %
         
         
         ----------------
@@ -269,10 +284,12 @@ SI_UNIT : Exports == Implementation where
           sym:List(String):=["m","kg","s","A","K","mol","cd"]
           f:OutputForm:=empty()     
           for i in 1..7 repeat 
-            if not zero? r.i then 
-              f:=hconcat(f,super(sym(i)::SYM::OF, r.i::OF))
+            if not zero? r.i then
+              f:=hconcat(f,sym(i)::SYM::OF ^ r.i::OF)
+              --f:=hconcat(f,super(sym(i)::SYM::OF, r.i::OF))
           f
         
+
         
         ------------------------------------------
         -- Base unit constructors (implementation)
@@ -303,7 +320,7 @@ SI_UNIT : Exports == Implementation where
           mksi([0,0,0,0,0,0,0])  
           
           
-        SI_derived(s:String):% ==
+        SIderived(s:String):% ==
           s = "hertz"     => %s(-1)
           s = "newton"    => %kg(1)*%m(1)*%s(-2)
           s = "pascal"    => %kg(1)*%m(-1)*%s(-2)
@@ -343,14 +360,15 @@ SI_UNIT : Exports == Implementation where
 
 
 
--- End of SI_UNIT --        
+-- End of SIunit --        
        
        
 -------------------------------------------------------------------------------
 )abbrev domain PQTY PhysQty
 ++ Author: Kurt Pagani
 ++ Date Created: 2012
-++ License: BSD (same as Axiom)
+++ License: BSD2
+++ Version: 15-NOV-2015
 ++
 PhysQty(U): Exports == Implementation where
     
@@ -358,7 +376,7 @@ PhysQty(U): Exports == Implementation where
     F   ==> Float
     R   ==> DoubleFloat
     I   ==> Integer
-    QI  ==> Q_INTERVAL
+    QI  ==> RationalInterval
     U:PhysicalUnit
        
     
@@ -385,15 +403,14 @@ PhysQty(U): Exports == Implementation where
         ---------------------------------------------------
         pqty: (Q, Q, U) -> %    
         
-        pqty_value: % -> Q  -- get the value
-        pqty_error: % -> Q  -- get the uncertainty
-        pqty_unit:  % -> U  -- get the unit
+        pqtyValue: % -> Q  -- get the value
+        pqtyError: % -> Q  -- get the uncertainty
+        pqtyUnit:  % -> U  -- get the unit
         
-        pqty_interval: % -> QI  -- get the interval [v-delta,v+delta]
-        pqty_scale: (%,Q) -> %       -- scale by rational number
+        pqtyInterval: % -> QI    -- get the interval [v-delta,v+delta]
+        pqtyScale: (%,Q) -> %    -- scale by rational number
 
-
-        pqty_tm_toggle: U -> Boolean        
+      
            
     Implementation ==  add 
     
@@ -407,13 +424,13 @@ PhysQty(U): Exports == Implementation where
         ----------------------
         pqty(v,e,u) == [[v-e,v+e]::List(Q)::QI,u::U]$Rep
             
-        pqty_value(r) == mid(r.ival)
+        pqtyValue(r) == mid(r.ival)
           
-        pqty_error(r) == len(r.ival)/2::Q
+        pqtyError(r) == len(r.ival)/2::Q
 
-        pqty_unit(r) == r.unit
+        pqtyUnit(r) == r.unit
 
-        pqty_interval(r) == r.ival
+        pqtyInterval(r) == r.ival
 
         ----------------------------------------------------
         -- Implement basic operations (interval arithmetic))
@@ -434,29 +451,25 @@ PhysQty(U): Exports == Implementation where
 
         - x == [-x.ival, x.unit]$Rep 
 
-        -----------------------------------------------------------
+        --------
         -- scale
-        -----------------------------------------------------------
-        pqty_scale(x,s) == [s x.ival,x.unit]$Rep
+        --------
+        pqtyScale(x,s) == [s x.ival,x.unit]$Rep
 
-        --elts
-        elt(q:Q,x:%):% == pqty_scale(x,q)
+        -------
+        -- elts
+        -------
+        elt(q:Q,x:%):% == pqtyScale(x,q)
         elt(qi:QI,u:U):% == [qi,u]$Rep
         elt(s:Union(Q,F,R,I),u:U):% == [[s::Q,s::Q]::List(Q)::QI,u]$Rep
         
-
-        pqty_tm := false
-
-        pqty_tm_toggle(u:U) : Boolean ==  -- bad hack
-          pqty_tm := not pqty_tm
-          pqty_tm
-     
+        ---------
+        -- coerce  
+        ---------
         coerce(r : %) : OutputForm ==
           OF ==> OutputForm
-          -- pqty_tm = true => 
-          -- hconcat [tm_frep r.ival, " "::OF, r.unit::OF ]
           hconcat [frep r.ival, " "::OF, r.unit::OF ]
-          
-          
+
+                    
           
 -- End of PhysQty
