@@ -152,10 +152,23 @@ If the installation was successful try the following commands which are looking 
 
 
 
+#### Data
+The following data is provided as `input` file (folder `data`):
 
-#### User/Reference Manual
+* [CODATA 2014](http://physics.nist.gov/cuu/Constants/)
+* [AWAIC](http://www.nist.gov/physlab/data/comp.cfm) Atomic Weights and Isotope Compositions 
+* `PSE` - Periodic System of Elements
+* SI tables
+* Non SI tables
 
-A preliminary version is [here](http://kfp.bitbucket.org/pqty/PQTY.html).
+                                        
+#### User/Reference Manual (preliminary)
+
+
+* [RIA](http://kfp.bitbucket.org/pqty/RIA.html)
+* [SI](http://kfp.bitbucket.org/pqty/SI.html)
+* [PQTY](http://kfp.bitbucket.org/pqty/PQTY.html)
+* [DATA](http://kfp.bitbucket.org/pqty/pqty_data.html)
 
 In the subfolder `doc` you will find the notebooks (`.ipynb`)
 

@@ -6,7 +6,7 @@
 
 Q ==> Fraction(Integer)
 
-CODATA(v,e,u) == pqty(v::Q, e::Q, u::SI_UNIT)
+CODATA(v,e,u) == pqty(v::Q, e::Q, u::SIunit)
 
 codata : Table(Symbol,PQTY(SI)) := empty();
 
