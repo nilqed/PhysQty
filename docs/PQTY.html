@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PQTY - Physical Quantities &mdash; PhysQty 1.0.4 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="PhysQty 1.0.4 documentation" href="index.html" />
+    <link rel="prev" title="SI - International System of Units" href="SI.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="SI.html" title="SI - International System of Units"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PhysQty 1.0.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pqty-physical-quantities">
+<h1>PQTY - Physical Quantities<a class="headerlink" href="#pqty-physical-quantities" title="Permalink to this headline">¶</a></h1>
+<blockquote>
+<div>A physical quantity is a property of a phenomenon, body, or
+substance, where the property has a magnitude that can be expressed
+as a number and a reference</div></blockquote>
+<p>Source: <a class="reference external" href="http://www.bipm.org/utils/common/documents/jcgm/JCGM_200_2012.pdf">International vocabulary of
+metrology</a></p>
+<div class="section" id="general-information-links">
+<h2>General Information :: Links<a class="headerlink" href="#general-information-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Bureau International des Poids et Mesures
+<a class="reference external" href="http://www.bipm.org">BIPM</a></li>
+<li>National Institute of Standards and Technology
+<a class="reference external" href="http://www.nist.gov/">NIST</a></li>
+</ul>
+<p>The domain PhysQty (abbrev. PQTY) implements physical quantities. The
+implementation is based on the following category and domains:</p>
+<ul class="simple">
+<li>Rational interval arithmetics ... <a class="reference external" href="RIA.html">RIA</a></li>
+<li>Category <code class="docutils literal"><span class="pre">PhysicalUnit</span></code> ... <a class="reference external" href="PUNIT.html">PUNIT</a></li>
+<li>SI Units ... <a class="reference external" href="SI.html">SI</a></li>
+</ul>
+<div class="section" id="general-form">
+<h3>General Form<a class="headerlink" href="#general-form" title="Permalink to this headline">¶</a></h3>
+<p>A physical quantity in PQTY comprises three components:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">v</span></code>, value (rational)</li>
+<li><code class="docutils literal"><span class="pre">e</span></code>, uncertainty (rational)</li>
+<li><code class="docutils literal"><span class="pre">u</span></code>, unit (e.g. type SI_UNIT)</li>
+</ul>
+<p>All base calculations are done by interval propagation of the interval
+<code class="docutils literal"><span class="pre">[v-e,v+e]</span></code>. Thus an element of the type <code class="docutils literal"><span class="pre">PhysQty</span></code> has the form
+<span class="math">\([v-e,v+e] \times u\)</span>.</p>
+</div>
+<div class="section" id="constructors-and-query-functions">
+<h3>Constructors and query functions<a class="headerlink" href="#constructors-and-query-functions" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pqty</span><span class="p">:</span> <span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">U</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+
+<span class="n">pqtyValue</span><span class="p">:</span> <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">Q</span>  <span class="o">--</span> <span class="n">get</span> <span class="n">the</span> <span class="n">value</span>
+<span class="n">pqtyError</span><span class="p">:</span> <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">Q</span>  <span class="o">--</span> <span class="n">get</span> <span class="n">the</span> <span class="n">uncertainty</span>
+<span class="n">pqtyUnit</span><span class="p">:</span>  <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">U</span>  <span class="o">--</span> <span class="n">get</span> <span class="n">the</span> <span class="n">unit</span>
+
+<span class="n">pqtyInterval</span><span class="p">:</span> <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">QI</span>  <span class="o">--</span> <span class="n">get</span> <span class="n">the</span> <span class="n">interval</span> <span class="p">[</span><span class="n">v</span><span class="o">-</span><span class="n">delta</span><span class="p">,</span><span class="n">v</span><span class="o">+</span><span class="n">delta</span><span class="p">]</span>
+<span class="n">pqtyScale</span><span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="n">Q</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>  <span class="o">--</span> <span class="n">scale</span> <span class="n">by</span> <span class="n">rational</span> <span class="n">number</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="basic-operations">
+<h3>Basic Operations<a class="headerlink" href="#basic-operations" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;*&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;/&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;+&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;-&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;^&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="n">Integer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;-&quot;</span><span class="p">:</span>  <span class="o">%</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">elt</span><span class="p">:</span> <span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">elt</span><span class="p">:</span> <span class="p">(</span><span class="n">QI</span><span class="p">,</span><span class="n">U</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">elt</span><span class="p">:</span> <span class="p">(</span><span class="n">Union</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span><span class="n">F</span><span class="p">,</span><span class="n">R</span><span class="p">,</span><span class="n">I</span><span class="p">),</span><span class="n">U</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">coerce</span> <span class="p">:</span> <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">OutputForm</span>
+</pre></div>
+</div>
+<p>In order to use the libary we have to load it and all its dependencies:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="p">)</span><span class="n">lib</span> <span class="n">RIA</span> <span class="n">PUNIT</span> <span class="n">SI</span> <span class="n">PQTY</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RationalInterval</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">explicitly</span> <span class="n">exposed</span> <span class="ow">in</span> <span class="n">frame</span> <span class="n">initial</span>
+<span class="n">RationalInterval</span> <span class="n">will</span> <span class="n">be</span> <span class="n">automatically</span> <span class="n">loaded</span> <span class="n">when</span> <span class="n">needed</span> <span class="kn">from</span>
+   <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kfp</span><span class="o">/</span><span class="n">Development</span><span class="o">/</span><span class="n">physqty</span><span class="o">/</span><span class="n">Untitled</span> <span class="n">Folder</span><span class="o">/</span><span class="n">RIA</span><span class="o">.</span><span class="n">NRLIB</span><span class="o">/</span><span class="n">RIA</span>
+<span class="n">PhysicalUnit</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">explicitly</span> <span class="n">exposed</span> <span class="ow">in</span> <span class="n">frame</span> <span class="n">initial</span>
+<span class="n">PhysicalUnit</span> <span class="n">will</span> <span class="n">be</span> <span class="n">automatically</span> <span class="n">loaded</span> <span class="n">when</span> <span class="n">needed</span> <span class="kn">from</span>
+   <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kfp</span><span class="o">/</span><span class="n">Development</span><span class="o">/</span><span class="n">physqty</span><span class="o">/</span><span class="n">Untitled</span> <span class="n">Folder</span><span class="o">/</span><span class="n">PUNIT</span><span class="o">.</span><span class="n">NRLIB</span><span class="o">/</span><span class="n">PUNIT</span>
+<span class="n">SIunit</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">explicitly</span> <span class="n">exposed</span> <span class="ow">in</span> <span class="n">frame</span> <span class="n">initial</span>
+<span class="n">SIunit</span> <span class="n">will</span> <span class="n">be</span> <span class="n">automatically</span> <span class="n">loaded</span> <span class="n">when</span> <span class="n">needed</span> <span class="kn">from</span>
+   <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kfp</span><span class="o">/</span><span class="n">Development</span><span class="o">/</span><span class="n">physqty</span><span class="o">/</span><span class="n">Untitled</span> <span class="n">Folder</span><span class="o">/</span><span class="n">SI</span><span class="o">.</span><span class="n">NRLIB</span><span class="o">/</span><span class="n">SI</span>
+<span class="n">PhysQty</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">explicitly</span> <span class="n">exposed</span> <span class="ow">in</span> <span class="n">frame</span> <span class="n">initial</span>
+<span class="n">PhysQty</span> <span class="n">will</span> <span class="n">be</span> <span class="n">automatically</span> <span class="n">loaded</span> <span class="n">when</span> <span class="n">needed</span> <span class="kn">from</span>
+   <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kfp</span><span class="o">/</span><span class="n">Development</span><span class="o">/</span><span class="n">physqty</span><span class="o">/</span><span class="n">Untitled</span> <span class="n">Folder</span><span class="o">/</span><span class="n">PQTY</span><span class="o">.</span><span class="n">NRLIB</span><span class="o">/</span><span class="n">PQTY</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">Q</span> <span class="o">==&gt;</span> <span class="n">Fraction</span> <span class="n">Integer</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Type</span><span class="p">:</span> <span class="n">Void</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pqty-the-main-constructor">
+<h3>pqty - the main constructor<a class="headerlink" href="#pqty-the-main-constructor" title="Permalink to this headline">¶</a></h3>
+<p>For instance let us create the quantity
+<span class="math">\(g=9.81\pm0.05 \frac{m}{s^2}\)</span>:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="p">:</span><span class="o">=</span> <span class="n">pqty</span><span class="p">(</span><span class="mf">9.81</span><span class="p">::</span><span class="n">Q</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">::</span><span class="n">Q</span><span class="p">,</span> <span class="o">%</span><span class="n">m</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/%</span><span class="n">s</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ne">Warning</span><span class="p">:</span> <span class="n">HyperTeX</span> <span class="n">macro</span> <span class="n">table</span> <span class="ow">not</span> <span class="n">found</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>             1 - 2
+9.81 ± 0.05 m s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<p>Now <code class="docutils literal"><span class="pre">g</span></code> has type <code class="docutils literal"><span class="pre">PhysQty(SI_UNIT)</span></code>. If we had entered units of an
+other system we would get a different representation, for instance of
+type <code class="docutils literal"><span class="pre">PhysQty(CGS_UNIT)</span></code>, however, still the same object.</p>
+<p><strong>Note</strong>: all numeric arguments in <code class="docutils literal"><span class="pre">PQTY</span></code> have to be rationals,
+although this might not be seen on first sight. Either one has to
+<code class="docutils literal"><span class="pre">coerce</span></code> the figures oneself or it will be done automatically by
+certain <code class="docutils literal"><span class="pre">elt</span></code> functions.</p>
+<p>How can we recover <code class="docutils literal"><span class="pre">u,v,e</span></code> from the object <code class="docutils literal"><span class="pre">g</span></code>?</p>
+<div class="section" id="pqty-interval">
+<h4>pqty_interval<a class="headerlink" href="#pqty-interval" title="Permalink to this headline">¶</a></h4>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">pqtyInterval</span> <span class="n">g</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">244</span> <span class="mi">493</span>
+<span class="p">[</span><span class="o">---</span><span class="p">,</span><span class="o">---</span><span class="p">]</span>
+  <span class="mi">25</span>  <span class="mi">50</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<p>Here we can see how the value <span class="math">\(9.81\pm 0.05\)</span> has been converted to
+a rational interval. Now we could use the functions <code class="docutils literal"><span class="pre">lb,ub</span></code> from the
+domain <code class="docutils literal"><span class="pre">Q_INTERVAL</span></code> to get the lower and upper bound.</p>
+</div>
+<div class="section" id="pqty-value">
+<h4>pqty_value<a class="headerlink" href="#pqty-value" title="Permalink to this headline">¶</a></h4>
+<p>This function recovers the value:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">pqtyValue</span> <span class="n">g</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">981</span>
+<span class="o">---</span>
+<span class="mi">100</span>
+                                                   <span class="n">Type</span><span class="p">:</span> <span class="n">Fraction</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pqty-error">
+<h4>pqty_error<a class="headerlink" href="#pqty-error" title="Permalink to this headline">¶</a></h4>
+<p>This function recovers the uncertainty:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">pqtyError</span> <span class="n">g</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>
+<span class="o">--</span>
+<span class="mi">20</span>
+                                                   <span class="n">Type</span><span class="p">:</span> <span class="n">Fraction</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pqty-unit">
+<h4>pqty_unit<a class="headerlink" href="#pqty-unit" title="Permalink to this headline">¶</a></h4>
+<p>This function recovers the unit:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">pqtyUnit</span> <span class="n">g</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<p>pqty_scale If we want double the quantity <code class="docutils literal"><span class="pre">g</span></code> we can either use the
+constructor <code class="docutils literal"><span class="pre">pqty</span></code> to create the object <code class="docutils literal"><span class="pre">g2</span></code> or we may apply the
+scaling function to <code class="docutils literal"><span class="pre">g</span></code>:</p>
+</div>
+<div class="section" id="pqtyscale">
+<h4>pqtyScale<a class="headerlink" href="#pqtyscale" title="Permalink to this headline">¶</a></h4>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">g2</span> <span class="p">:</span><span class="o">=</span> <span class="n">pqtyScale</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>             1 - 2
+19.62 ± 0.1 m s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<p><strong>Note</strong>: although these low-level methods are the safe and recommended
+one, they are not very convenient. For calculations without
+<code class="docutils literal"><span class="pre">uncertainties</span></code> one may use the following method:</p>
+</div>
+<div class="section" id="elt-method">
+<h4>ELT method<a class="headerlink" href="#elt-method" title="Permalink to this headline">¶</a></h4>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">area</span> <span class="p">:</span><span class="o">=</span> <span class="mf">123.45</span> <span class="o">%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>              2
+123.45 ± 0.0 m
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">force</span> <span class="p">:</span><span class="o">=</span> <span class="mf">56.777</span> <span class="n">SIderived</span><span class="p">(</span><span class="s2">&quot;newton&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>              1  1 - 2
+56.777 ± 0.0 m kg s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">pressure</span> <span class="p">:</span><span class="o">=</span> <span class="n">force</span> <span class="o">/</span> <span class="n">area</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                               - 1  1 - 2
+0.4599189955_4475496152 ± 0.0 m   kg s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">actually</span><span class="p">:</span>
+<span class="n">pqtyInterval</span> <span class="n">pressure</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="mi">56777</span>  <span class="mi">56777</span>
+<span class="p">[</span><span class="o">------</span><span class="p">,</span><span class="o">------</span><span class="p">]</span>
+ <span class="mi">123450</span> <span class="mi">123450</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">the</span> <span class="n">interval</span> <span class="n">represents</span> <span class="n">a</span> <span class="n">value</span> <span class="n">without</span> <span class="n">uncertainty</span><span class="p">,</span> <span class="n">indeed</span> <span class="n">we</span> <span class="n">have</span>
+<span class="nb">len</span> <span class="o">%</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">0</span>
+                                                   <span class="n">Type</span><span class="p">:</span> <span class="n">Fraction</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>At the moment this is the only method implemented to create a <code class="docutils literal"><span class="pre">PQTY</span></code>
+object without the main constructor. Possibly there will be a method to
+enter the so called <code class="docutils literal"><span class="pre">concise</span></code> form.</p>
+<div class="section" id="examples-of-basic-operations">
+<h5>Examples of basic operations<a class="headerlink" href="#examples-of-basic-operations" title="Permalink to this headline">¶</a></h5>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">we</span> <span class="n">cannot</span> <span class="n">add</span> <span class="n">different</span> <span class="n">units</span>
+<span class="n">force</span> <span class="o">+</span> <span class="n">g</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TYPE</span><span class="o">-</span><span class="n">ERROR</span><span class="p">:</span>
+  <span class="c1">#&lt;TYPE-ERROR expected-type: CONS datum: NIL&gt;</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">but</span> <span class="n">we</span> <span class="n">can</span> <span class="n">multiply</span> <span class="ow">or</span> <span class="n">divide</span> <span class="n">them</span>
+<span class="n">force</span><span class="o">*</span><span class="n">g</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                     2  1 - 4
+556.98237 ± 2.83885 m kg s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">M</span><span class="p">:</span><span class="o">=</span><span class="n">force</span><span class="o">/</span><span class="n">g</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                                                   1
+5.7878160018_953878895 ± 0.0294995718_7510391381 kg
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span>-- we can invert a quantity, even it makes no sense physically !?
+-M
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                                                     1
+- 5.7878160018_953878895 ± 0.0294995718_7510391381 kg
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span>-- scaling (not 2*g !!)
+2 g
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>             1 - 2
+19.62 ± 0.1 m s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">recall</span> <span class="n">g2</span> <span class="n">above</span>
+<span class="n">g2</span> <span class="o">-</span> <span class="mi">2</span> <span class="n">g</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>           1 - 2
+0.0 ± 0.2 m s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">error</span> <span class="n">usually</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">zero</span> <span class="n">when</span> <span class="n">e</span><span class="o">&lt;&gt;</span><span class="mf">0.</span>
+<span class="n">pqtyError</span> <span class="o">%</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="o">-</span>
+<span class="mi">5</span>
+                                                   <span class="n">Type</span><span class="p">:</span> <span class="n">Fraction</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">exponentiation</span>
+<span class="n">pressure</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                               - 2  2 - 4
+0.2115254824_6289633415 ± 0.0 m   kg s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">force</span><span class="o">^</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                        3  3 - 6
+183027.911569433 ± 0.0 m kg s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">error</span> <span class="ow">is</span> <span class="n">zero</span><span class="p">,</span> <span class="n">because</span> <span class="n">e</span><span class="o">=</span><span class="mf">0.</span>
+<span class="n">force</span>  <span class="o">-</span> <span class="n">force</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>           1  1 - 2
+0.0 ± 0.0 m kg s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mf">6.344</span><span class="p">::</span><span class="n">Q</span><span class="p">)</span> <span class="n">force</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                  1  1 - 2
+360.193288 ± 0.0 m kg s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">%</span><span class="n">pi</span><span class="p">::</span><span class="n">Float</span><span class="p">::</span><span class="n">Q</span><span class="p">)</span> <span class="n">g</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                                                  1 - 2
+30.8190239317_15871669 ± 0.1570796326_7948966192 m s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+</div>
+<div class="section" id="write-your-own-functions">
+<h5>Write your own functions<a class="headerlink" href="#write-your-own-functions" title="Permalink to this headline">¶</a></h5>
+<p>This low level library covers almost everything such that one can write
+extensions. As an exmaple let us create a function <code class="docutils literal"><span class="pre">add_error</span></code> which
+adds an uncertainty to a given quantity and returns the result as a new
+instance.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">addError</span><span class="p">(</span><span class="n">qty</span><span class="p">,</span> <span class="n">err</span><span class="p">)</span> <span class="o">==</span>
+    <span class="n">v</span><span class="p">:</span><span class="o">=</span> <span class="n">pqtyValue</span> <span class="n">qty</span>
+    <span class="n">e</span><span class="p">:</span><span class="o">=</span> <span class="p">(</span><span class="n">pqtyError</span> <span class="n">qty</span><span class="p">)</span><span class="o">+</span><span class="n">err</span>
+    <span class="n">u</span><span class="p">:</span><span class="o">=</span> <span class="n">pqtyUnit</span> <span class="n">qty</span>
+    <span class="k">return</span> <span class="n">pqty</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Type</span><span class="p">:</span> <span class="n">Void</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">addError</span><span class="p">(</span><span class="n">pressure</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                                                   - 1  1 - 2
+0.4599189955_4475496152 ± 0.3333333333_3333333333 m   kg s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">comapre</span> <span class="n">to</span> <span class="n">pressure</span><span class="p">:</span>
+<span class="n">pressure</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>                               - 1  1 - 2
+0.4599189955_4475496152 ± 0.0 m   kg s
+                                                     Type: PhysQty(SIunit)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PQTY - Physical Quantities</a><ul>
+<li><a class="reference internal" href="#general-information-links">General Information :: Links</a><ul>
+<li><a class="reference internal" href="#general-form">General Form</a></li>
+<li><a class="reference internal" href="#constructors-and-query-functions">Constructors and query functions</a></li>
+<li><a class="reference internal" href="#basic-operations">Basic Operations</a></li>
+<li><a class="reference internal" href="#pqty-the-main-constructor">pqty - the main constructor</a><ul>
+<li><a class="reference internal" href="#pqty-interval">pqty_interval</a></li>
+<li><a class="reference internal" href="#pqty-value">pqty_value</a></li>
+<li><a class="reference internal" href="#pqty-error">pqty_error</a></li>
+<li><a class="reference internal" href="#pqty-unit">pqty_unit</a></li>
+<li><a class="reference internal" href="#pqtyscale">pqtyScale</a></li>
+<li><a class="reference internal" href="#elt-method">ELT method</a><ul>
+<li><a class="reference internal" href="#examples-of-basic-operations">Examples of basic operations</a></li>
+<li><a class="reference internal" href="#write-your-own-functions">Write your own functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="SI.html"
+                        title="previous chapter">SI - International System of Units</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/PQTY.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="SI.html" title="SI - International System of Units"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PhysQty 1.0.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Kurt Pagani &lt;nilqed@gmail.com&gt;.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

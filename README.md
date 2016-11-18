@@ -1,5 +1,5 @@
 
-# PhysQty - Physical Quantities
+# PhysQty - Physical Quantities (for FriCAS)
 
 >A physical quantity is a property of a phenomenon, body, or substance,
 >where the property has a magnitude that can be expressed as a number and a reference
@@ -16,7 +16,12 @@ Source: [International vocabulary of metrology](http://www.bipm.org/utils/common
 
 Another domain called `RationalInterval` (abbrev. `RIA`) cares for exact calculations by using *rational interval arithmetics*. 
 
-## Installation
+##### Documentation
+
+    http://nilqed.github.io/PhysQty/ 
+
+
+## Installation (without Quicklisp)
 
 Get this repository:
 
@@ -40,6 +45,16 @@ Next time one may use the library by the command:
     )lib RIA SI PUNIT PQTY
     
    
+##### Install using Quicklisp
+
+    Install fricas_quicklisp: https://github.com/nilqed/fricas_quicklisp
+    
+    cd ~/quicklisp/local-projects
+    git clone https://kfp@bitbucket.org/kfp/physqty.git
+
+    start FriCAS
+    -> quickLoad physqty
+
 
 ##### Quick check
 If the installation was successful try the following commands which are looking for an expression of the oscillation period of a pendulum by using Buckinghams's theorem:

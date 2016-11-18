@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SI - International System of Units &mdash; PhysQty 1.0.4 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="PhysQty 1.0.4 documentation" href="index.html" />
+    <link rel="next" title="PQTY - Physical Quantities" href="PQTY.html" />
+    <link rel="prev" title="RIA - Rational Interval Arithmetics" href="RIA.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="PQTY.html" title="PQTY - Physical Quantities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="RIA.html" title="RIA - Rational Interval Arithmetics"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PhysQty 1.0.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="si-international-system-of-units">
+<h1>SI - International System of Units<a class="headerlink" href="#si-international-system-of-units" title="Permalink to this headline">¶</a></h1>
+<p>The domain <strong>``SI``</strong> (abbrev. also <strong>``SI``</strong>) implements <em>SI Units</em>.
+The standard reference for this topic is: <em>Bureau International des
+Poids et Mesures</em> <a class="reference external" href="http://www.bipm.org">BIPM</a></p>
+<p>The recommended practical system of units of measurement is the
+International System of Units (Système International d&#8217;Unités, with the
+international abbreviation SI). The SI is defined by the <a class="reference external" href="http://www.bipm.org/en/publications/si-brochure/">SI
+Brochure</a>, which is
+published by the BIPM.</p>
+<div class="section" id="de-constructors">
+<h2>[De] Constructors<a class="headerlink" href="#de-constructors" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="base-units">
+<h3>Base units<a class="headerlink" href="#base-units" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">m</span>   <span class="p">:</span>  <span class="n">Integer</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="o">%</span><span class="n">kg</span>  <span class="p">:</span>  <span class="n">Integer</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="o">%</span><span class="n">s</span>   <span class="p">:</span>  <span class="n">Integer</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="o">%</span><span class="n">A</span>   <span class="p">:</span>  <span class="n">Integer</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="o">%</span><span class="n">K</span>   <span class="p">:</span>  <span class="n">Integer</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="o">%</span><span class="n">mol</span> <span class="p">:</span>  <span class="n">Integer</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="o">%</span><span class="n">cd</span>  <span class="p">:</span>  <span class="n">Integer</span> <span class="o">-&gt;</span> <span class="o">%</span>
+</pre></div>
+</div>
+<p>Compound construction/deconstructor</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mksi</span><span class="p">:</span> <span class="n">List</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">si2l</span><span class="p">:</span> <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="derived-units">
+<h3>Derived units<a class="headerlink" href="#derived-units" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SI_derived</span> <span class="p">:</span> <span class="n">String</span> <span class="o">-&gt;</span> <span class="o">%</span>
+</pre></div>
+</div>
+<p>To each function there is an example below.</p>
+<p>In order to use the library we have to load it:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="p">)</span><span class="n">lib</span> <span class="n">SI</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SIunit</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">explicitly</span> <span class="n">exposed</span> <span class="ow">in</span> <span class="n">frame</span> <span class="n">initial</span>
+<span class="n">SIunit</span> <span class="n">will</span> <span class="n">be</span> <span class="n">automatically</span> <span class="n">loaded</span> <span class="n">when</span> <span class="n">needed</span> <span class="kn">from</span>
+   <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kfp</span><span class="o">/</span><span class="n">Development</span><span class="o">/</span><span class="n">physqty</span><span class="o">/</span><span class="n">Untitled</span> <span class="n">Folder</span><span class="o">/</span><span class="n">SI</span><span class="o">.</span><span class="n">NRLIB</span><span class="o">/</span><span class="n">SI</span>
+</pre></div>
+</div>
+<div class="section" id="seven-base-units">
+<h4>Seven Base Units<a class="headerlink" href="#seven-base-units" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="length-meter">
+<h5>Length (meter)<a class="headerlink" href="#length-meter" title="Permalink to this headline">¶</a></h5>
+<p>The metre is the length of the path travelled by light in vacuum during
+a time interval of <code class="docutils literal"><span class="pre">1/299</span> <span class="pre">792</span> <span class="pre">458</span></code> of a second.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Symbol</span><span class="p">:</span> <span class="n">m</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">m</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ne">Warning</span><span class="p">:</span> <span class="n">HyperTeX</span> <span class="n">macro</span> <span class="n">table</span> <span class="ow">not</span> <span class="n">found</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>
+<span class="n">m</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mass-kilogram">
+<h5>Mass (kilogram)<a class="headerlink" href="#mass-kilogram" title="Permalink to this headline">¶</a></h5>
+<p>The kilogram is the unit of mass; it is equal to the mass of the
+international prototype of the kilogram.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Symbol</span><span class="p">:</span> <span class="n">kg</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="mi">1</span>
+<span class="n">kg</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="time-second">
+<h5>Time (second)<a class="headerlink" href="#time-second" title="Permalink to this headline">¶</a></h5>
+<p>The second is the duration of <code class="docutils literal"><span class="pre">9</span> <span class="pre">192</span> <span class="pre">631</span> <span class="pre">770</span></code> periods of the radiation
+corresponding to the transition between the two hyperfine levels of the
+ground state of the caesium <code class="docutils literal"><span class="pre">133</span></code> atom.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Symbol</span><span class="p">:</span> <span class="n">s</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">s</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>
+<span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="electric-current-ampere">
+<h5>Electric current (ampere)<a class="headerlink" href="#electric-current-ampere" title="Permalink to this headline">¶</a></h5>
+<p>The ampere is that constant current which, if maintained in two straight
+parallel conductors of infinite length, of negligible circular
+cross-section, and placed 1 m apart in vacuum, would produce between
+these conductors a force equal to 2 x 10–7 newton per metre of length.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Symbol</span><span class="p">:</span> <span class="n">A</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>
+<span class="n">A</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="thermodynamic-temperature-kelvin">
+<h5>Thermodynamic temperature (kelvin)<a class="headerlink" href="#thermodynamic-temperature-kelvin" title="Permalink to this headline">¶</a></h5>
+<p>The kelvin, unit of thermodynamic temperature, is the fraction 1/273.16
+of the thermodynamic temperature of the triple point of water.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Symbol</span><span class="p">:</span> <span class="n">K</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">K</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>
+<span class="n">K</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="amount-of-substance-mol">
+<h5>Amount of substance (mol)<a class="headerlink" href="#amount-of-substance-mol" title="Permalink to this headline">¶</a></h5>
+<ul>
+<li><p class="first">The mole is the amount of substance of a system which contains as
+many elementary entities as there are atoms in 0.012 kilogram of
+carbon 12.</p>
+</li>
+<li><p class="first">When the mole is used, the elementary entities must be specified and
+may be atoms, molecules, ions, electrons, other particles, or
+specified groups of such particles.</p>
+<p><code class="docutils literal"><span class="pre">Symbol:</span> <span class="pre">mol</span></code></p>
+</li>
+</ul>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">mol</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>   <span class="mi">1</span>
+<span class="n">mol</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="luminous-intensity-candela">
+<h5>Luminous intensity (candela)<a class="headerlink" href="#luminous-intensity-candela" title="Permalink to this headline">¶</a></h5>
+<p>The candela is the luminous intensity, in a given direction, of a source
+that emits monochromatic radiation of frequency 540 x <span class="math">\(10^{12}\)</span>
+hertz and that has a radiant intensity in that direction of 1/683 watt
+per steradian.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Symbol</span><span class="p">:</span> <span class="n">cd</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">cd</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="mi">1</span>
+<span class="n">cd</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Volume</span> <span class="p">(</span><span class="n">cubic</span> <span class="n">meter</span><span class="p">)</span>
+<span class="o">%</span><span class="n">m</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">3</span>
+<span class="n">m</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Force</span> <span class="p">(</span><span class="n">newton</span><span class="p">)</span>
+<span class="n">F</span><span class="p">:</span><span class="o">=%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span> <span class="n">kg</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Force</span> <span class="n">again</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span> <span class="nb">input</span> <span class="n">order</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">matter</span>
+<span class="o">--</span> <span class="ow">and</span> <span class="o">%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="ow">is</span> <span class="n">equivalent</span> <span class="n">to</span> <span class="n">divide</span> <span class="n">by</span> <span class="o">%</span><span class="n">s</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span>
+<span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">/%</span><span class="n">s</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span> <span class="n">kg</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<p><strong>Note</strong></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>the output ordering is fixed: m kg s A K mol cd. This is also the order of arguments for the compound constructor **`mksi`**.
+</pre></div>
+</div>
+<div class="section" id="mksi">
+<h4>mksi<a class="headerlink" href="#mksi" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal"><span class="pre">mksi</span></code> (make SI) constructor creates a SI unit from a list of
+exponents:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">mksi</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span> <span class="n">kg</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Lets</span> <span class="n">make</span> <span class="n">the</span> <span class="n">unit</span> <span class="k">for</span> <span class="n">pressure</span> <span class="o">=</span> <span class="n">force</span><span class="o">/</span><span class="n">area</span>
+<span class="n">p</span><span class="p">:</span><span class="o">=</span><span class="n">mksi</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="o">-</span> <span class="mi">1</span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span>   <span class="n">kg</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Let</span><span class="s1">&#39;s check:</span>
+<span class="n">F</span><span class="o">/%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="o">-</span> <span class="mi">1</span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span>   <span class="n">kg</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">mksi</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>  <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>   <span class="mi">1</span>  <span class="mi">1</span>
+<span class="n">m</span> <span class="n">kg</span> <span class="n">s</span> <span class="n">A</span> <span class="n">K</span> <span class="n">mol</span> <span class="n">cd</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">the</span> <span class="s2">&quot;one&quot;</span> <span class="n">unit</span>
+<span class="n">mksi</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="si2l">
+<h4>si2l<a class="headerlink" href="#si2l" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal"><span class="pre">si2l</span></code> function converts a SI unit to a list of its exponents,
+i.e. it is the reverse function of <code class="docutils literal"><span class="pre">mksi</span></code>:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">si2l</span> <span class="n">F</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+                                                       <span class="n">Type</span><span class="p">:</span> <span class="n">List</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">si2l</span> <span class="n">p</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span> <span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+                                                       <span class="n">Type</span><span class="p">:</span> <span class="n">List</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">si2l</span> <span class="o">%</span><span class="n">cd</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+                                                       <span class="n">Type</span><span class="p">:</span> <span class="n">List</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">A</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="o">%</span><span class="n">K</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">3</span> <span class="mi">8</span>
+<span class="n">A</span> <span class="n">K</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">si2l</span> <span class="o">%</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+                                                       <span class="n">Type</span><span class="p">:</span> <span class="n">List</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h4>Derived Units<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>The <em>derived SI units</em> are built in for convenience. The lookup function
+is <code class="docutils literal"><span class="pre">SI_derived</span></code> and expects as argument the name of the <em>derived
+unit</em>. Note that those and their nomenclature are clearly defined by
+BIPM:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SIderived</span><span class="p">(</span><span class="n">s</span><span class="p">:</span><span class="n">String</span><span class="p">):</span><span class="o">%</span> <span class="o">==</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;hertz&quot;</span>     <span class="o">=&gt;</span> <span class="o">%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;newton&quot;</span>    <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;pascal&quot;</span>    <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;joule&quot;</span>     <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;watt&quot;</span>      <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;coulomb&quot;</span>   <span class="o">=&gt;</span> <span class="o">%</span><span class="n">s</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;volt&quot;</span>      <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">*%</span><span class="n">A</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;farad&quot;</span>     <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">*%</span><span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;ohm&quot;</span>       <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="o">*%</span><span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;siemens&quot;</span>   <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">*%</span><span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;weber&quot;</span>     <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">A</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;tesla&quot;</span>     <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">A</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;henry&quot;</span>     <span class="o">=&gt;</span> <span class="o">%</span><span class="n">kg</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">A</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;lumen&quot;</span>     <span class="o">=&gt;</span> <span class="o">%</span><span class="n">cd</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;lux&quot;</span>       <span class="o">=&gt;</span> <span class="o">%</span><span class="n">m</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">cd</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;becquerel&quot;</span> <span class="o">=&gt;</span> <span class="o">%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;gray&quot;</span>      <span class="o">=&gt;</span> <span class="o">%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;sievert&quot;</span>   <span class="o">=&gt;</span> <span class="o">%</span><span class="n">m</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+      <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;katal&quot;</span>     <span class="o">=&gt;</span> <span class="o">%</span><span class="n">s</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*%</span><span class="n">mol</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">error</span> <span class="s2">&quot;Expected string name of a derived SI unit.&quot;</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">SIderived</span> <span class="s2">&quot;pascal&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="o">-</span> <span class="mi">1</span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span>   <span class="n">kg</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">SIderived</span> <span class="s2">&quot;tesla&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span>
+<span class="n">kg</span> <span class="n">s</span>   <span class="n">A</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">SIderived</span> <span class="s2">&quot;gray&quot;</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">SIderived</span> <span class="s2">&quot;becquerel&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">3</span>
+<span class="n">m</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">Energy</span> <span class="p">:</span><span class="o">=</span> <span class="n">SIderived</span> <span class="s2">&quot;joule&quot;</span>
+<span class="n">Force</span>  <span class="p">:</span><span class="o">=</span> <span class="n">SIderived</span> <span class="s2">&quot;newton&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">2</span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span> <span class="n">kg</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+ <span class="mi">1</span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span> <span class="n">kg</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span>(Energy/Force)$SI
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span>
+<span class="n">m</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">indeed</span> <span class="n">Energy</span> <span class="o">=</span> <span class="n">Force</span> <span class="o">*</span> <span class="o">%</span><span class="n">m</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Force</span><span class="o">*%</span><span class="n">m</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">2</span>  <span class="mi">1</span> <span class="o">-</span> <span class="mi">2</span>
+<span class="n">m</span> <span class="n">kg</span> <span class="n">s</span>
+                                                              <span class="n">Type</span><span class="p">:</span> <span class="n">SIunit</span>
+</pre></div>
+</div>
+<div class="section" id="test-for-equality">
+<h5>Test for equality<a class="headerlink" href="#test-for-equality" title="Permalink to this headline">¶</a></h5>
+<p>Use <code class="docutils literal"><span class="pre">$</span></code> if necessary:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span>(Energy = (Force * %m(1)))$SI
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">true</span>
+                                                             <span class="n">Type</span><span class="p">:</span> <span class="n">Boolean</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span>(p=Force/%m(2))$SI
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">true</span>
+                                                             <span class="n">Type</span><span class="p">:</span> <span class="n">Boolean</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Error</span> <span class="p">(</span><span class="n">actually</span> <span class="s1">&#39;meter&#39;</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">base</span> <span class="n">unit</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">derived</span><span class="p">)</span>
+<span class="n">SIderived</span><span class="p">(</span><span class="s2">&quot;meter&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;</span> <span class="n">Error</span> <span class="n">detected</span> <span class="n">within</span> <span class="n">library</span> <span class="n">code</span><span class="p">:</span>
+<span class="n">Expected</span> <span class="n">string</span> <span class="n">name</span> <span class="n">of</span> <span class="n">a</span> <span class="n">derived</span> <span class="n">SI</span> <span class="n">unit</span><span class="o">.</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">error</span>
+</pre></div>
+</div>
+<p>Next see <strong>Buckingham :math:`Pi` Theorem</strong></p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Buckingham_%CF%80_theorem">Wikipedia</a></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SI - International System of Units</a><ul>
+<li><a class="reference internal" href="#de-constructors">[De] Constructors</a><ul>
+<li><a class="reference internal" href="#base-units">Base units</a></li>
+<li><a class="reference internal" href="#derived-units">Derived units</a><ul>
+<li><a class="reference internal" href="#seven-base-units">Seven Base Units</a><ul>
+<li><a class="reference internal" href="#length-meter">Length (meter)</a></li>
+<li><a class="reference internal" href="#mass-kilogram">Mass (kilogram)</a></li>
+<li><a class="reference internal" href="#time-second">Time (second)</a></li>
+<li><a class="reference internal" href="#electric-current-ampere">Electric current (ampere)</a></li>
+<li><a class="reference internal" href="#thermodynamic-temperature-kelvin">Thermodynamic temperature (kelvin)</a></li>
+<li><a class="reference internal" href="#amount-of-substance-mol">Amount of substance (mol)</a></li>
+<li><a class="reference internal" href="#luminous-intensity-candela">Luminous intensity (candela)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#mksi">mksi</a></li>
+<li><a class="reference internal" href="#si2l">si2l</a></li>
+<li><a class="reference internal" href="#id1">Derived Units</a><ul>
+<li><a class="reference internal" href="#test-for-equality">Test for equality</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="RIA.html"
+                        title="previous chapter">RIA - Rational Interval Arithmetics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="PQTY.html"
+                        title="next chapter">PQTY - Physical Quantities</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/SI.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="PQTY.html" title="PQTY - Physical Quantities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="RIA.html" title="RIA - Rational Interval Arithmetics"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PhysQty 1.0.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Kurt Pagani &lt;nilqed@gmail.com&gt;.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>

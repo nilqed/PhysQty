@@ -1,0 +1,600 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>RIA - Rational Interval Arithmetics &mdash; PhysQty 1.0.4 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="PhysQty 1.0.4 documentation" href="index.html" />
+    <link rel="next" title="SI - International System of Units" href="SI.html" />
+    <link rel="prev" title="PhysQty :: Physical Quantities" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="SI.html" title="SI - International System of Units"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="PhysQty :: Physical Quantities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PhysQty 1.0.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ria-rational-interval-arithmetics">
+<h1>RIA - Rational Interval Arithmetics<a class="headerlink" href="#ria-rational-interval-arithmetics" title="Permalink to this headline">¶</a></h1>
+<p>The domain <strong>``RationalInterval``</strong> (abbrev. <strong>``RIA``</strong>) implements
+<em>Rational Interval Arithmetics</em>. We were inspired by the article
+<a class="reference external" href="https://www.lri.fr/~melquion/doc/05-arith17-article.pdf">Guaranteed Proofs Using Interval
+Arithmetic</a>.
+For basic definitions see section 2.1 therein.</p>
+<div class="section" id="basic-interval-operations">
+<h2>Basic Interval Operations<a class="headerlink" href="#basic-interval-operations" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s2">&quot;+&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;-&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;*&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;/&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;^&quot;</span> <span class="p">:</span> <span class="p">(</span><span class="o">%</span><span class="p">,</span><span class="n">I</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="s2">&quot;-&quot;</span> <span class="p">:</span>  <span class="o">%</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="nb">abs</span> <span class="p">:</span>  <span class="o">%</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">elt</span> <span class="p">:</span> <span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="o">%</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">coerce</span><span class="p">:</span> <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">OutputForm</span>
+<span class="n">coerce</span><span class="p">:</span> <span class="n">List</span> <span class="n">Q</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">coerce</span><span class="p">:</span> <span class="n">Float</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">coerce</span><span class="p">:</span> <span class="n">DF</span> <span class="o">-&gt;</span> <span class="o">%</span>
+
+<span class="n">concise</span> <span class="p">:</span> <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">OutputForm</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="constructors-and-query-functions">
+<h2>Constructors and Query Functions<a class="headerlink" href="#constructors-and-query-functions" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">mki</span> <span class="p">:</span> <span class="p">(</span><span class="n">Q</span><span class="p">,</span><span class="n">Q</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="o">%</span>
+<span class="n">lb</span>  <span class="p">:</span>  <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">Q</span>
+<span class="n">ub</span>  <span class="p">:</span>  <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">Q</span>
+
+<span class="n">mid</span> <span class="p">:</span>  <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">Q</span>
+<span class="nb">len</span> <span class="p">:</span>  <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">Q</span>
+
+<span class="n">frep</span>    <span class="p">:</span> <span class="o">%</span> <span class="o">-&gt;</span> <span class="n">OF</span>
+</pre></div>
+</div>
+<p>These functions and operations are explained in detail below. Note that
+<code class="docutils literal"><span class="pre">Q</span></code> means the rationals (<span class="math">\(\mathbb{Q}\)</span>).</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">Q</span> <span class="o">==&gt;</span> <span class="n">Fraction</span> <span class="n">Integer</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Type</span><span class="p">:</span> <span class="n">Void</span>
+</pre></div>
+</div>
+<p>In order to use the library we have to load it:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="p">)</span><span class="n">lib</span> <span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">RationalInterval</span> <span class="ow">is</span> <span class="n">now</span> <span class="n">explicitly</span> <span class="n">exposed</span> <span class="ow">in</span> <span class="n">frame</span> <span class="n">initial</span>
+<span class="n">RationalInterval</span> <span class="n">will</span> <span class="n">be</span> <span class="n">automatically</span> <span class="n">loaded</span> <span class="n">when</span> <span class="n">needed</span> <span class="kn">from</span>
+   <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">kfp</span><span class="o">/</span><span class="n">Development</span><span class="o">/</span><span class="n">physqty</span><span class="o">/</span><span class="n">Untitled</span> <span class="n">Folder</span><span class="o">/</span><span class="n">RIA</span><span class="o">.</span><span class="n">NRLIB</span><span class="o">/</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="section" id="construction-of-intervals">
+<h3>Construction of Intervals<a class="headerlink" href="#construction-of-intervals" title="Permalink to this headline">¶</a></h3>
+<p>The first method to construct a rational interval is to use the
+constructor function <code class="docutils literal"><span class="pre">mki</span></code> which expects two arguments: the lower
+bound <code class="docutils literal"><span class="pre">lb</span></code> and the upper bound <code class="docutils literal"><span class="pre">ub</span></code> returning an object of type
+<code class="docutils literal"><span class="pre">RationalInterval</span></code>.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">I</span><span class="p">:</span><span class="o">=</span><span class="n">mki</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="ne">Warning</span><span class="p">:</span> <span class="n">HyperTeX</span> <span class="n">macro</span> <span class="n">table</span> <span class="ow">not</span> <span class="n">found</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span> <span class="mi">2</span>
+<span class="p">[</span><span class="o">-</span><span class="p">,</span><span class="o">-</span><span class="p">]</span>
+ <span class="mi">2</span> <span class="mi">3</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<p>Another method is to <code class="docutils literal"><span class="pre">coerce</span></code> a list <code class="docutils literal"><span class="pre">[lb,ub]</span></code>, where
+<span class="math">\(lb \leq ub\in\mathbb{Q}\)</span>.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">I2</span><span class="p">:</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">]::</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span> <span class="mi">2</span>
+<span class="p">[</span><span class="o">-</span><span class="p">,</span><span class="o">-</span><span class="p">]</span>
+ <span class="mi">2</span> <span class="mi">3</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<p><strong>Note</strong> that the arguments must be rational numbers, failing which
+produces an error:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">I3</span><span class="p">:</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span><span class="mf">0.6666</span><span class="p">]::</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Cannot</span> <span class="n">convert</span> <span class="n">the</span> <span class="n">value</span> <span class="kn">from</span> <span class="nn">type</span> <span class="n">List</span><span class="p">(</span><span class="n">Float</span><span class="p">)</span> <span class="n">to</span> <span class="n">RationalInterval</span> <span class="o">.</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">error</span>
+</pre></div>
+</div>
+<p>However, we can coerce the arguments of course:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">I3</span><span class="p">:</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">::</span><span class="n">Q</span><span class="p">,</span><span class="mf">0.6666</span><span class="p">::</span><span class="n">Q</span><span class="p">]::</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1</span> <span class="mi">3333</span>
+<span class="p">[</span><span class="o">-</span><span class="p">,</span><span class="o">----</span><span class="p">]</span>
+ <span class="mi">2</span> <span class="mi">5000</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<p>So, as we can see, floating point numbers are converted to rationals.</p>
+</div>
+<div class="section" id="query-functions">
+<h3>Query functions<a class="headerlink" href="#query-functions" title="Permalink to this headline">¶</a></h3>
+<p>Objects of type <code class="docutils literal"><span class="pre">RationalInterval</span></code> are not lists, therefore the usual
+way to access elements will not work. There are special query functions
+expecting an interval as argument.</p>
+</div>
+</div>
+<div class="section" id="lower-bound-of-i">
+<h2>Lower bound of <code class="docutils literal"><span class="pre">I</span></code><a class="headerlink" href="#lower-bound-of-i" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">lb</span> <span class="n">I</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="o">-</span>
+<span class="mi">2</span>
+                                                   <span class="n">Type</span><span class="p">:</span> <span class="n">Fraction</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="upper-bound-of-i">
+<h2>Upper bound of <code class="docutils literal"><span class="pre">I</span></code><a class="headerlink" href="#upper-bound-of-i" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">ub</span> <span class="n">I</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">2</span>
+<span class="o">-</span>
+<span class="mi">3</span>
+                                                   <span class="n">Type</span><span class="p">:</span> <span class="n">Fraction</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mean-value-i-e">
+<h2>Mean value, i.e. <span class="math">\(\frac{(lb+ub)}{2}\)</span><a class="headerlink" href="#mean-value-i-e" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">mid</span> <span class="n">I</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">7</span>
+<span class="o">--</span>
+<span class="mi">12</span>
+                                                   <span class="n">Type</span><span class="p">:</span> <span class="n">Fraction</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="length-of-i-i-e">
+<h2>Length of I, i.e. <span class="math">\(ub-lb\)</span><a class="headerlink" href="#length-of-i-i-e" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="nb">len</span> <span class="n">I</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span>
+<span class="o">-</span>
+<span class="mi">6</span>
+                                                   <span class="n">Type</span><span class="p">:</span> <span class="n">Fraction</span><span class="p">(</span><span class="n">Integer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The function <code class="docutils literal"><span class="pre">frep</span></code> gives a floating point representation of the
+interval. This function merely is for use with the <code class="docutils literal"><span class="pre">PQTY</span></code> package, so
+use with care.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">frep</span> <span class="n">I</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>0.5833333333_3333333333 ± 0.0833333333_3333333333_3
+                                                          Type: OutputForm
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">digits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">frep</span> <span class="n">I</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>20
+                                                     Type: PositiveInteger
+0.58333333 ± 0.083333333
+                                                          Type: OutputForm
+</pre></div>
+</div>
+<p>Intervals can be added, multiplied, scaled and so on. To each operation
+an example is given below. For the sake of clarity we use <em>integer</em>
+rationals:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span><span class="p">:</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">::</span><span class="n">Q</span><span class="p">,</span><span class="mi">2</span><span class="p">]::</span><span class="n">RIA</span>
+<span class="n">B</span><span class="p">:</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">::</span><span class="n">Q</span><span class="p">,</span><span class="mi">8</span><span class="p">]::</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+<span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">+</span><span class="n">B</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">-</span><span class="n">B</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span> <span class="mi">9</span><span class="p">,</span><span class="o">-</span> <span class="mi">3</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">-</span><span class="n">B</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span> <span class="mi">8</span><span class="p">,</span><span class="o">-</span> <span class="mi">5</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">so</span> <span class="n">A</span><span class="o">+</span><span class="p">(</span><span class="o">-</span><span class="n">B</span><span class="p">)</span> <span class="n">should</span> <span class="n">equal</span> <span class="n">A</span><span class="o">-</span><span class="n">B</span>
+<span class="n">A</span><span class="o">+</span><span class="p">(</span><span class="o">-</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span> <span class="mi">9</span><span class="p">,</span><span class="o">-</span> <span class="mi">3</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">*</span><span class="n">B</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span> <span class="mi">8</span><span class="p">,</span><span class="mi">16</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">/</span><span class="n">B</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>   <span class="mi">1</span> <span class="mi">2</span>
+<span class="p">[</span><span class="o">-</span> <span class="o">-</span><span class="p">,</span><span class="o">-</span><span class="p">]</span>
+   <span class="mi">5</span> <span class="mi">5</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">B</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">25</span><span class="p">,</span><span class="mi">64</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">expecting</span> <span class="n">an</span> <span class="n">error</span>
+<span class="n">A</span><span class="o">^</span><span class="mi">2</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TYPE</span><span class="o">-</span><span class="n">ERROR</span><span class="p">:</span>
+  <span class="c1">#&lt;TYPE-ERROR expected-type: CONS datum: NIL&gt;</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">however</span><span class="p">:</span> <span class="n">A</span><span class="o">^</span><span class="mi">3</span>
+<span class="n">A</span><span class="o">^</span><span class="mi">3</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="o">-</span> <span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">B</span><span class="o">^</span><span class="mi">3</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">125</span><span class="p">,</span><span class="mi">512</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<p>It is obvious that intervals containing <code class="docutils literal"><span class="pre">0</span></code> properly cannot
+exponentiated by even integers. Also acting as denominator is usually
+<strong>not</strong> possible.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="nb">abs</span> <span class="n">A</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="nb">abs</span> <span class="n">B</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="nb">abs</span> <span class="p">(</span><span class="n">A</span><span class="o">^</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">32</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<p>The operation <strong>``elt``</strong> means scaling the inteval by a rational
+number:</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="n">A</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>   <span class="mi">2</span> <span class="mi">4</span>
+<span class="p">[</span><span class="o">-</span> <span class="o">-</span><span class="p">,</span><span class="o">-</span><span class="p">]</span>
+   <span class="mi">3</span> <span class="mi">3</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="mi">5</span> <span class="n">B</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">25</span><span class="p">,</span><span class="mi">40</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="p">(</span><span class="n">A</span><span class="o">+</span><span class="n">B</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">12</span><span class="p">,</span><span class="mi">30</span><span class="p">]</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">digits</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="p">(</span><span class="mf">12.45666666</span><span class="p">::</span><span class="n">Q</span><span class="p">)</span> <span class="n">A</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">8</span>
+                                                     <span class="n">Type</span><span class="p">:</span> <span class="n">PositiveInteger</span>
+   <span class="mi">6254156</span> <span class="mi">12508312</span>
+<span class="p">[</span><span class="o">-</span> <span class="o">-------</span><span class="p">,</span><span class="o">--------</span><span class="p">]</span>
+    <span class="mi">502073</span>  <span class="mi">502073</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<p>There are <code class="docutils literal"><span class="pre">coercions</span></code> from Float and <code class="docutils literal"><span class="pre">DF</span></code> (DoubleFloat) to type
+<code class="docutils literal"><span class="pre">RIA</span></code> which are not very useful in this context but are useful in
+other packages:</p>
+</div>
+<div class="section" id="coercions-and-pitfalls">
+<h2>Coercions and pitfalls<a class="headerlink" href="#coercions-and-pitfalls" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="o">--</span> <span class="n">Attention</span><span class="p">:</span> <span class="n">Float</span> <span class="nb">type</span> <span class="n">depends</span> <span class="n">on</span> <span class="n">precision</span><span class="p">,</span> <span class="n">digits</span> <span class="o">...</span>
+<span class="mf">1.234567</span><span class="p">::</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">50737</span> <span class="mi">50737</span>
+<span class="p">[</span><span class="o">-----</span><span class="p">,</span><span class="o">-----</span><span class="p">]</span>
+ <span class="mi">41097</span> <span class="mi">41097</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">digits</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="mf">1.234567</span><span class="p">::</span><span class="n">DoubleFloat</span><span class="p">::</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span>
+                                                     <span class="n">Type</span><span class="p">:</span> <span class="n">PositiveInteger</span>
+ <span class="mi">118164173</span> <span class="mi">118164173</span>
+<span class="p">[</span><span class="o">---------</span><span class="p">,</span><span class="o">---------</span><span class="p">]</span>
+  <span class="mi">95713050</span>  <span class="mi">95713050</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">digits</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">--</span> <span class="n">note</span> <span class="n">difference</span>
+<span class="mf">1.234567</span><span class="p">::</span><span class="n">DoubleFloat</span><span class="p">::</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mi">10</span>
+                                                     <span class="n">Type</span><span class="p">:</span> <span class="n">PositiveInteger</span>
+ <span class="mi">1234567</span> <span class="mi">1234567</span>
+<span class="p">[</span><span class="o">-------</span><span class="p">,</span><span class="o">-------</span><span class="p">]</span>
+ <span class="mi">1000000</span> <span class="mi">1000000</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">r</span><span class="p">:</span><span class="n">DoubleFloat</span><span class="p">:</span><span class="o">=%</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">1.5707963267948966</span>
+                                                         <span class="n">Type</span><span class="p">:</span> <span class="n">DoubleFloat</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">r</span><span class="p">::</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">80143857</span> <span class="mi">80143857</span>
+<span class="p">[</span><span class="o">--------</span><span class="p">,</span><span class="o">--------</span><span class="p">]</span>
+ <span class="mi">51021164</span> <span class="mi">51021164</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="section" id="show-ria">
+<h3>Show RIA<a class="headerlink" href="#show-ria" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="p">)</span><span class="n">show</span> <span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> RationalInterval  is a domain constructor
+ Abbreviation for RationalInterval is RIA
+ This constructor is exposed in this frame.
+------------------------------- Operations --------------------------------
+ ?*? : (%,%) -&gt; %                      ?+? : (%,%) -&gt; %
+ -? : % -&gt; %                           ?-? : (%,%) -&gt; %
+ ?/? : (%,%) -&gt; %                      ?^? : (%,Integer) -&gt; %
+ abs : % -&gt; %                          coerce : DecimalExpansion -&gt; %
+ coerce : DoubleFloat -&gt; %             coerce : Float -&gt; %
+ coerce : % -&gt; OutputForm              concise : % -&gt; OutputForm
+ convert : % -&gt; String                 elt : (Fraction(Integer),%) -&gt; %
+ frep : % -&gt; OutputForm                lb : % -&gt; Fraction(Integer)
+ len : % -&gt; Fraction(Integer)          mid : % -&gt; Fraction(Integer)
+ tm_frep : % -&gt; OutputForm             ub : % -&gt; Fraction(Integer)
+ coerce : List(Fraction(Integer)) -&gt; %
+ mki : (Fraction(Integer),Fraction(Integer)) -&gt; %
+</pre></div>
+</div>
+</div>
+<div class="section" id="decimal-expansions">
+<h3>Decimal Expansions<a class="headerlink" href="#decimal-expansions" title="Permalink to this headline">¶</a></h3>
+<p>While <code class="docutils literal"><span class="pre">Float</span></code> implements arbitrary precision floating point
+arithmetic, <code class="docutils literal"><span class="pre">DoubleFloat</span></code> is intended to make accessible hardware
+floating point arithmetic, either native double precision, or IEEE.</p>
+<p>Many operations are not expected to be fully accurate when using
+<code class="docutils literal"><span class="pre">DoubleFloat</span></code>. In particular, <code class="docutils literal"><span class="pre">sin</span></code> and <code class="docutils literal"><span class="pre">cos</span></code> will lose all
+precision for large arguments. The <code class="docutils literal"><span class="pre">Float</span></code> domain provides an
+alternative to the <code class="docutils literal"><span class="pre">DoubleFloat</span></code> domain. It provides an arbitrary
+precision model of floating point arithmetic. This means that accuracy
+problems are eliminated by increasing the working precision where
+necessary. <code class="docutils literal"><span class="pre">Float</span></code> provides some special functions such as <code class="docutils literal"><span class="pre">erf</span></code>,
+the error function in addition to the elementary functions. The
+disadvantage of <code class="docutils literal"><span class="pre">Float</span></code> is that it is much more expensive than small
+floats when the latter can be used. <strong>Note</strong> that for big numbers
+<code class="docutils literal"><span class="pre">DoubleFloat</span></code> may overflow!</p>
+<p>Another useful <code class="docutils literal"><span class="pre">type</span></code> is <code class="docutils literal"><span class="pre">DecimalExpansion</span></code>: allows rational numbers
+to be presented as repeating decimal expansions.</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">DE</span> <span class="o">==&gt;</span> <span class="n">DecimalExpansion</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Type</span><span class="p">:</span> <span class="n">Void</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">::</span><span class="n">DE</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span>  <span class="n">_</span>
+<span class="mf">0.3</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">DecimalExpansion</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">d</span><span class="p">:</span><span class="o">=</span><span class="mi">1234567</span><span class="o">/</span><span class="mi">100000</span><span class="p">::</span><span class="n">DE</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">12.34567</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">DecimalExpansion</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">d</span><span class="p">::</span><span class="n">RIA</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="mi">1234567</span> <span class="mi">1234567</span>
+<span class="p">[</span><span class="o">-------</span><span class="p">,</span><span class="o">-------</span><span class="p">]</span>
+  <span class="mi">100000</span>  <span class="mi">100000</span>
+                                                    <span class="n">Type</span><span class="p">:</span> <span class="n">RationalInterval</span>
+</pre></div>
+</div>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">d</span><span class="p">::</span><span class="n">Float</span>
+<span class="n">d</span><span class="p">::</span><span class="n">DoubleFloat</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">12.34567</span>
+                                                               <span class="n">Type</span><span class="p">:</span> <span class="n">Float</span>
+<span class="mf">12.34567</span>
+                                                         <span class="n">Type</span><span class="p">:</span> <span class="n">DoubleFloat</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">RIA - Rational Interval Arithmetics</a><ul>
+<li><a class="reference internal" href="#basic-interval-operations">Basic Interval Operations</a></li>
+<li><a class="reference internal" href="#constructors-and-query-functions">Constructors and Query Functions</a><ul>
+<li><a class="reference internal" href="#construction-of-intervals">Construction of Intervals</a></li>
+<li><a class="reference internal" href="#query-functions">Query functions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#lower-bound-of-i">Lower bound of <code class="docutils literal"><span class="pre">I</span></code></a></li>
+<li><a class="reference internal" href="#upper-bound-of-i">Upper bound of <code class="docutils literal"><span class="pre">I</span></code></a></li>
+<li><a class="reference internal" href="#mean-value-i-e">Mean value, i.e. <span class="math">\(\frac{(lb+ub)}{2}\)</span></a></li>
+<li><a class="reference internal" href="#length-of-i-i-e">Length of I, i.e. <span class="math">\(ub-lb\)</span></a></li>
+<li><a class="reference internal" href="#coercions-and-pitfalls">Coercions and pitfalls</a><ul>
+<li><a class="reference internal" href="#show-ria">Show RIA</a></li>
+<li><a class="reference internal" href="#decimal-expansions">Decimal Expansions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">PhysQty :: Physical Quantities</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="SI.html"
+                        title="next chapter">SI - International System of Units</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/RIA.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="SI.html" title="SI - International System of Units"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="PhysQty :: Physical Quantities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">PhysQty 1.0.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2016, Kurt Pagani &lt;nilqed@gmail.com&gt;.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+    </div>
+  </body>
+</html>
